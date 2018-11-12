@@ -1,0 +1,30 @@
+通过cookie实现传参，但偶尔会出现参数信息变少，或是cookie参数传值修改后而没有改变等问题，查询才知：cookie存在了url同样的问题，cookie也有大小限制。
+所以cookie适合比较小的数据参数保存。尽量保持cookie个数小于20个，总大小小于4kb。
+
+
+
+先获取用户信息
+
+将用户信息保存在Cookie
+document.cookie = "userID=" +data.result.id;
+
+js获取cookie
+function = getCookies($name){
+  var strCookie = document.cookie.split(";"); //cookie是以键值对的形式保存的，即key=value的格式，各个cookie之间一般使用';'隔开。
+  var userID;
+  for(var i in strCookie){
+    if(strCookie[i].indexOf($name)!=-1){
+      userID = strCookie[i].replace($name,"").replace("=","").trim();
+      console.log(userID);
+    }
+  }
+}
+
+删除Cookie
+可以通过设置过期时间来使cookie过期,已达到清除的目的或将其内容设置为空
+function delCookie(){
+  var myDate = new Date();
+  myDate.setTime(-1000);//设置时间
+  document.cookie = $name + ":''; expires= " + myDate.toGMTString();
+}
+
